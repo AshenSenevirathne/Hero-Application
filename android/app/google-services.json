@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879060562262",
+    "project_id": "heroapp-76fac",
+    "storage_bucket": "heroapp-76fac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879060562262:android:b1a389e83c0e3e9fba26f7",
+        "android_client_info": {
+          "package_name": "com.example.hero_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879060562262-s71fp0itj4r0h6q5anu1qs9g4iefc7be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDerEb5mjKpiNHdDj8j4pFwxuT3Y-JbTB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879060562262-s71fp0itj4r0h6q5anu1qs9g4iefc7be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
