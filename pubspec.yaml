@@ -28,6 +28,8 @@ dependencies:
 
   # Text Animator
   animated_text_kit: ^4.2.1
+  #Awesome dialog
+  awesome_dialog: ^2.1.0
 
 dev_dependencies:
   flutter_test:

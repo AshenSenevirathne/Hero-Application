@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:hero_application/Screens/AuthWrapper.dart';
 import 'dart:async';
-
 import 'package:hero_application/shared/constants.dart';
 
-import 'package:hero_application/screens/wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
         Duration(seconds: 5),
-        () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper()))
+        () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthenticationWrapper()))
     );
   }
 
