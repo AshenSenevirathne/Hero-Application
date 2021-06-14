@@ -1,4 +1,4 @@
-import 'package:hero_application/Models/User.dart';
+import 'package:hero_application/Models/user.dart';
 import 'package:hero_application/Services/authentication_service.dart';
 import 'package:hero_application/Shared/constants.dart';
 import 'package:hero_application/Shared/loading.dart';

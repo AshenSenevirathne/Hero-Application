@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hero_application/Screens/HeroHome/my_heroes_container.dart';
 import 'package:hero_application/Screens/Home/home_page.dart';
+import 'package:hero_application/Shared/constants.dart';
 import 'package:hero_application/screens/splash/splash.dart';
-import 'package:hero_application/Screens/Authentication/SignIn.dart';
-import 'package:hero_application/Screens/Authentication/SignUp.dart';
+import 'package:hero_application/Screens/Authentication/sign_in.dart';
+import 'package:hero_application/Screens/Authentication/sign_up.dart';
 import 'Services/authentication_service.dart';
 import 'package:provider/provider.dart';
 
@@ -30,13 +32,14 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Hero App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: primary_color,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
           "/register": (context) => Register(),
           "/signIn": (context) => SignIn(),
           "/home": (context) => Home(),
+          "/heroHome": (context) => MyAllHeroes(),
         },
         home: SplashScreen(),
       ),

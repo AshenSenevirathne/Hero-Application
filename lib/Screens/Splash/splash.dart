@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:hero_application/Screens/AuthWrapper.dart';
+import 'package:hero_application/Screens/auth_wrapper.dart';
 import 'dart:async';
 import 'package:hero_application/shared/constants.dart';
 

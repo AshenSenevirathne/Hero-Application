@@ -133,8 +133,9 @@ class _SignInState extends State<SignIn> {
                           }
                           else{
                             setState(() {
-                              loading = true;
+                              loading = false;
                             });
+                            Navigator.pushReplacementNamed(context, "/home");
                           }
                         }
                       }
@@ -161,7 +162,7 @@ class _SignInState extends State<SignIn> {
                           setState(() {
                             loading = false;
                           });
-                          Navigator.pushReplacementNamed(context, "/");
+                          Navigator.pushReplacementNamed(context, "/home");
                         }
                       }
 
