@@ -3,6 +3,7 @@ import 'package:hero_application/Shared/constants.dart';
 import 'package:hero_application/Shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -42,7 +43,23 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         elevation: 0.0,
-        title: Text('Sign in to Hero App'),
+        title:  AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText(
+              'Sign In to HeroApp!',
+              textStyle: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold,
+              ),
+              speed: const Duration(milliseconds: 600),
+            ),
+          ],
+
+          totalRepeatCount: 4,
+          pause: const Duration(milliseconds: 400),
+          displayFullTextOnTap: true,
+          stopPauseOnTap: true,
+        ),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
@@ -81,16 +98,12 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 children: <Widget>[
 
-
                   ClipRRect(
+
                     borderRadius: BorderRadius.circular(8.0),
-                    child:
-
-
-                    Image.network('https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400px.gif'),
+                    child: Image.network('https://cliply.co/wp-content/uploads/2020/08/442008112_GLANCING_AVATAR_3D_400px.gif'),
 
                   ),
-
 
                   SizedBox(height: 20.0),
                   TextFormField(
