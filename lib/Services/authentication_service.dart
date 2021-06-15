@@ -8,20 +8,15 @@ class AuthenticationService {
 
   AuthenticationService();
 
-  /// Changed to idTokenChanges as it updates depending on more cases.
+  ///This updated the dependency
   Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
 
-  /// This won't pop routes so you could do something like
-  /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-  /// after you called this method if you want to pop all routes.
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 
-  /// There are a lot of different ways on how you can do exception handling.
-  /// This is to make it as easy as possible but a better way would be to
-  /// use your own custom class that would take the exception and return better
-  /// error messages. That way you can throw, return or whatever you prefer with that instead.
+
   Future<String?> signIn({required String UserEmail, required String UserPassword}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: UserEmail, password: UserPassword);
@@ -46,6 +41,9 @@ class AuthenticationService {
 
   Future<String?> addUser({required UserData userData, required String id}) {
     // Call the user's CollectionReference to add a new user
+    print(userData.country);
+    print(userData.userEmail);
+    print(userData.userMobile);
     return users.doc(id).set({
       'UserEmail': userData.userEmail,
       'UserName': userData.userName,
@@ -57,10 +55,9 @@ class AuthenticationService {
 
 
 
-  /// There are a lot of different ways on how you can do exception handling.
-  /// This is to make it as easy as possible but a better way would be to
-  /// use your own custom class that would take the exception and return better
-  /// error messages. That way you can throw, return or whatever you prefer with that instead.
+  ///own custom classes can be taken for return better and exception
+
+
   Future<String?> signUp({required UserData userData}) async {
     try {
       UserCredential userCredential =  await _firebaseAuth.createUserWithEmailAndPassword(email: userData.userEmail, password: userData.userPassword);
