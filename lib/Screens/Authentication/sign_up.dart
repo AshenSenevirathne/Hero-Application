@@ -228,9 +228,11 @@ class _RegisterState extends State<Register> {
                           }else{
                             setState(() {
                               loading=false;
+
                             });
+                            Navigator.pushReplacementNamed(context, '/home');
                           }
-                          Navigator.pushReplacementNamed(context, '/home');
+
                         }
                       }
                   ),
