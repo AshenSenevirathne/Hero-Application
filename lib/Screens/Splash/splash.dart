@@ -1,9 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:hero_application/Screens/auth_wrapper.dart';
+/*
+*   Dart core dependency imports
+* */
 import 'dart:async';
-import 'package:hero_application/shared/constants.dart';
+import 'package:flutter/material.dart';
 
+/*
+* Animated text dependency import
+* */
+import 'package:animated_text_kit/animated_text_kit.dart';
+
+/*
+* Custom dependency import
+* */
+import 'package:hero_application/Screens/auth_wrapper.dart';
+import 'package:hero_application/Shared/constants.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,10 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // Wait for 5 seconds
     Timer(
         Duration(seconds: 5),
-        () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthenticationWrapper()))
-    );
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => AuthenticationWrapper())));
   }
 
   @override
@@ -54,8 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           color: light_color,
                           fontWeight: FontWeight.bold,
                           fontSize: 40.0,
-                          fontFamily: "LobsterTwo-Regular"
-                      ),
+                          fontFamily: "LobsterTwo-Regular"),
                     ),
                   ],
                   isRepeatingAnimation: false,

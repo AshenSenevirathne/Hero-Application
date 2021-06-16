@@ -1,14 +1,20 @@
+/*
+*   Dart core dependency imports
+* */
 import 'package:flutter/material.dart';
+
+/*
+* Custom dependency import
+* */
 import 'package:hero_application/Shared/constants.dart';
 
 class TopBar extends StatelessWidget {
-
   final Size size;
+
   const TopBar({required this.size});
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.only(bottom: 25.0),
       height: size.height * 0.2,
@@ -36,11 +42,14 @@ class TopBar extends StatelessWidget {
                       color: light_color,
                       fontWeight: FontWeight.bold,
                       fontSize: 30.0,
-                      fontFamily: "LobsterTwo-Regular"
-                  ),
+                      fontFamily: "LobsterTwo-Regular"),
                 ),
                 Spacer(),
-                Image.asset("assets/images/hero1.png", width: 100.0, height: 30.0,)
+                Image.asset(
+                  "assets/images/hero1.png",
+                  width: 100.0,
+                  height: 30.0,
+                )
               ],
             ),
           ),

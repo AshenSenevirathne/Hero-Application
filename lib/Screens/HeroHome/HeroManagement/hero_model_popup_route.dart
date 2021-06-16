@@ -1,16 +1,20 @@
-
-import 'package:flutter/material.dart';
+/*
+*   Dart core dependency imports
+* */
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/*
+*  Customized page route to hero model popup
+* */
 class HeroModelPopupRoute<T> extends PageRoute<T> {
   final WidgetBuilder _builder;
 
   HeroModelPopupRoute({
     required WidgetBuilder builder,
     bool fullscreenDialog = false,
-  })
-      : _builder = builder,
+  })  : _builder = builder,
         super(fullscreenDialog: fullscreenDialog);
 
   @override
@@ -42,5 +46,4 @@ class HeroModelPopupRoute<T> extends PageRoute<T> {
 
   @override
   bool get barrierDismissible => false;
-
 }

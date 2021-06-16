@@ -1,12 +1,22 @@
-import 'package:flutter/cupertino.dart';
+/*
+*   Dart core dependency imports
+* */
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hero_application/Models/hero_model.dart';
-import 'package:hero_application/Screens/HeroHome/Components/my_hero.dart';
-import 'package:hero_application/Shared/constants.dart';
+import 'package:flutter/cupertino.dart';
 
-import 'package:provider/provider.dart';
+/*
+* Package dependency import
+* */
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+
+/*
+* Custom dependency import
+* */
+import 'package:hero_application/Models/hero_model.dart';
+import 'package:hero_application/Shared/constants.dart';
+import 'package:hero_application/Screens/HeroHome/Components/my_hero.dart';
 
 class MyHeroes extends StatefulWidget {
   @override
@@ -18,6 +28,10 @@ class _MyHeroesState extends State<MyHeroes> {
 
   @override
   Widget build(BuildContext context) {
+
+    /*
+    * Create stream for firebase and get heroes by user
+    * */
     final Stream<QuerySnapshot> _myHeroStream = FirebaseFirestore.instance
         .collection('Heroes')
         .where("AddedUserId", isEqualTo: context.watch<User?>()!.uid)
@@ -25,6 +39,7 @@ class _MyHeroesState extends State<MyHeroes> {
     return StreamBuilder<QuerySnapshot>(
       stream: _myHeroStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        // Show Error
         if (snapshot.hasError) {
           return Padding(
             padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
@@ -41,6 +56,7 @@ class _MyHeroesState extends State<MyHeroes> {
           );
         }
 
+        // Show loading screen until data loading
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Padding(
             padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
@@ -56,10 +72,8 @@ class _MyHeroesState extends State<MyHeroes> {
                           CircularProgressIndicator(),
                           Text(
                             "Loading hero details...",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: primary_color
-                            ),
+                            style:
+                                TextStyle(fontSize: 18, color: primary_color),
                           ),
                         ],
                       )
@@ -71,6 +85,7 @@ class _MyHeroesState extends State<MyHeroes> {
           );
         }
 
+        // Show Empty list if there is no hero
         if (snapshot.data!.size <= 0) {
           return Padding(
             padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
@@ -83,13 +98,15 @@ class _MyHeroesState extends State<MyHeroes> {
                     children: [
                       Column(
                         children: [
-                          Icon(Icons.list, color: primary_color, size: 60,),
+                          Icon(
+                            Icons.list,
+                            color: primary_color,
+                            size: 60,
+                          ),
                           Text(
                             "Your hero list is empty.",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: primary_color
-                            ),
+                            style:
+                                TextStyle(fontSize: 18, color: primary_color),
                           ),
                         ],
                       )
@@ -101,6 +118,7 @@ class _MyHeroesState extends State<MyHeroes> {
           );
         }
 
+        // Show heroes created by the user
         return Column(
           children: [
             ListView(

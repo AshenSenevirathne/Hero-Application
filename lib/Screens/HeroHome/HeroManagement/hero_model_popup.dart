@@ -1,22 +1,37 @@
+/*
+*   Dart core dependency imports
+* */
 import 'dart:io';
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+/*
+* Package dependency import
+* */
+import 'package:future_progress_dialog/future_progress_dialog.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:country_picker/country_picker.dart';
+
+/*
+* Custom dependency import
+* */
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Models/validation.dart';
 import 'package:hero_application/Services/hero_database_services.dart';
 import 'package:hero_application/Shared/alert_dialog.dart';
 import 'package:hero_application/Shared/constants.dart';
 
-import 'package:intl/intl.dart';
-import 'package:country_picker/country_picker.dart';
-import 'package:future_progress_dialog/future_progress_dialog.dart';
-import 'package:file_picker/file_picker.dart';
-
+/*
+* Model popup for insert and update process if the hero
+* */
 class HeroModelPopup extends StatefulWidget {
+  // Declare attributes
   final HeroModel heroModel;
   final String type;
   final String popUpHandler;
 
+  // Initialization attributes
   HeroModelPopup(
       {required this.heroModel,
       required this.type,
@@ -27,8 +42,9 @@ class HeroModelPopup extends StatefulWidget {
 }
 
 class _HeroModelPopupState extends State<HeroModelPopup> {
-  int _index = 0;
 
+  // Declare state attributes
+  int _index = 0;
   late String id;
   late String heroName;
   late dynamic bornDate;
@@ -42,6 +58,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
   late String key;
   File? file;
 
+  // Initialize state attributes
   @override
   void initState() {
     super.initState();
@@ -60,6 +77,17 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Method to move next form step
+    onStepCancel() {
+      if (_index > 0) {
+        setState(() {
+          _index -= 1;
+        });
+      }
+    }
+
+    // Method to validate step content
     validate() {
       bool isValid = true;
       String response = "";
@@ -92,18 +120,12 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
       return new Validation(status: isValid, response: response);
     }
 
-    onStepCancel() {
-      if (_index > 0) {
-        setState(() {
-          _index -= 1;
-        });
-      }
-    }
-
+    // Call firebase file upload function
     Future fileUploadToFirebase(String path) async {
       return await new HeroDatabaseServices().uploadFile(File(path));
     }
 
+    // Select file from device and upload file to firebase
     Future selectFile() async {
       final result = await FilePicker.platform.pickFiles(allowMultiple: false);
 
@@ -126,6 +148,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
       });
     }
 
+    // Create or Update hero according to call type
     Future manipulateHero() async {
       await Future.delayed(Duration(seconds: 2));
       HeroModel newHero = new HeroModel(
@@ -146,7 +169,8 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
       return state;
     }
 
-    onStepContinue() {
+    // Move to to forward in the form and in the final stage call the respective hero management function accordingly
+    onStepContinue() async{
       Validation validation = validate();
       if (validation.status) {
         if (_index < 2) {
@@ -161,9 +185,17 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                     'Please wait. Hero ${type == "CREATE" ? "creating" : "updating"}...')),
           ).then((value) {
             if (value == "SUCCESS") {
-              Navigator.pop(context);
-              showAlertDialog(context, false, "Done!",
-                  "Hero ${type == "CREATE" ? "created" : "updated"} successfully.");
+              AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.SUCCES,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Done',
+                  desc:"Hero ${type == "CREATE" ? "created" : "updated"} successfully.",
+                  dismissOnTouchOutside: false,
+                  btnOkOnPress: () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, "/heroHome");
+                  })..show();
             } else {
               showAlertDialog(context, true, "Oops, Something went wrong!",
                   "Error occurred while hero ${type == "CREATE" ? "creating" : "updating"}. Please ${type == "CREATE" ? "create" : "update"} hero again.");
@@ -171,11 +203,19 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
           });
         }
       } else {
-        showAlertDialog(
-            context, true, "Form Validation Error!", validation.response);
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.ERROR,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Form Validation Error!',
+            desc:validation.response,
+            btnOkColor: danger_color,
+            btnOkOnPress: () {
+            })..show();
       }
     }
 
+    // Return form content
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -195,7 +235,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                     padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                     child: Row(children: [
                       Text(
-                        type =="CREATE"?"Create Hero":"Update Hero",
+                        type == "CREATE" ? "Create Hero" : "Update Hero",
                         style: TextStyle(
                           fontSize: 20.0,
                           color: defaultColor,
@@ -218,9 +258,8 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                       currentStep: _index,
                       onStepCancel: onStepCancel,
                       onStepContinue: onStepContinue,
-                      controlsBuilder: (context,
-                              {onStepCancel, onStepContinue}) =>
-                          Padding(
+                      controlsBuilder:
+                          (context, {onStepCancel, onStepContinue}) => Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                         child: Row(
                           children: [
@@ -230,7 +269,9 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                             Spacer(),
                             ElevatedButton(
                               onPressed: onStepContinue,
-                              child: _index ==2?Text(type=="CREATE"?"Create":"Update"):Text("Next"),
+                              child: _index == 2
+                                  ? Text(type == "CREATE" ? "Create" : "Update")
+                                  : Text("Next"),
                             ),
                           ],
                         ),
@@ -282,14 +323,14 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                                     TextFormField(
                                       key: Key(imageUrl.toString()),
                                       initialValue: imageUrl,
-                                      decoration: getTextInputDecorations(
-                                              defaultColor)
-                                          .copyWith(
-                                              hintText: 'Paste Image URL',
-                                              labelText: "Image URL"),
+                                      decoration:
+                                          getTextInputDecorations(defaultColor)
+                                              .copyWith(
+                                                  hintText: 'Paste Image URL',
+                                                  labelText: "Image URL"),
                                       style: TextStyle(color: defaultColor),
                                       validator: (val) => val!.isEmpty
-                                          ? 'Enter a password 6+ chars long'
+                                          ? 'Enter Image URL'
                                           : null,
                                       onChanged: (val) {
                                         setState(() => imageUrl = val);
@@ -350,9 +391,8 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                                     domain = newValue!;
                                   });
                                 },
-                                items: domainType
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: domainType.map<DropdownMenuItem<String>>(
+                                    (String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
@@ -404,8 +444,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                                               context: context,
                                               countryListTheme:
                                                   CountryListThemeData(
-                                                borderRadius:
-                                                    BorderRadius.only(
+                                                borderRadius: BorderRadius.only(
                                                   topLeft:
                                                       Radius.circular(20.0),
                                                   topRight:
@@ -467,8 +506,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                                           onPressed: () {
                                             showDatePicker(
                                                     context: context,
-                                                    initialDate:
-                                                        DateTime.now(),
+                                                    initialDate: DateTime.now(),
                                                     lastDate: DateTime.now(),
                                                     firstDate: DateTime(1900))
                                                 .then((date) {
@@ -478,8 +516,7 @@ class _HeroModelPopupState extends State<HeroModelPopup> {
                                             });
                                           },
                                           icon: Icon(Icons.date_range),
-                                          label:
-                                              Text("Select Hero Born Date"),
+                                          label: Text("Select Hero Born Date"),
                                         )
                                       : null),
                               SizedBox(

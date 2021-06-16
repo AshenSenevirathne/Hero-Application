@@ -1,17 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
+/*
+*   Dart core dependency imports
+* */
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+/*
+* Package dependency import
+* */
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+
+/*
+* Custom dependency import
+* */
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Screens/HeroHome/Components/top_bar.dart';
 import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup.dart';
 import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup_route.dart';
+import 'package:hero_application/Screens/HeroHome/Components/my_heroes.dart';
 import 'package:hero_application/Shared/constants.dart';
 import 'package:hero_application/Shared/drawer.dart';
-
-import 'package:provider/provider.dart';
-import 'dart:ui';
-import 'package:flutter/widgets.dart';
-
-import 'Components/my_heroes.dart';
 
 class MyAllHeroes extends StatefulWidget {
   @override

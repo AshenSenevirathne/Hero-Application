@@ -1,14 +1,23 @@
-import 'package:flutter/cupertino.dart';
+/*
+*   Dart core dependency imports
+* */
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
+/*
+* Custom dependency import
+* */
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup.dart';
 import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup_route.dart';
 import 'package:hero_application/Shared/constants.dart';
 
-
 class MyHero extends StatefulWidget {
+  // Declare attributes
   final HeroModel heroModel;
 
+  // Initialization of hero model
   MyHero({required this.heroModel});
 
   @override
@@ -16,16 +25,20 @@ class MyHero extends StatefulWidget {
 }
 
 class _MyHeroState extends State<MyHero> {
+  // Declare state variables
   late HeroModel heroModel;
   late String popUpHandler;
+  Random random = new Random();
 
+  // Initialize state variables
   @override
   void initState() {
     super.initState();
     heroModel = widget.heroModel;
-    popUpHandler = widget.heroModel.id;
+    popUpHandler = widget.heroModel.id + random.nextDouble().toString();
   }
 
+  // Return content
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -86,18 +99,18 @@ class _MyHeroState extends State<MyHero> {
                               ),
                             ),
                           ),
-                           Card(
-                             elevation: 1,
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(50),
-                             ),
-                             child: IconButton(
+                          Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.delete),
                               color: danger_color,
                               iconSize: 30,
+                            ),
                           ),
-                           ),
                         ],
                       )
                     ],
