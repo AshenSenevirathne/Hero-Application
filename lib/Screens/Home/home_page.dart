@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hero_application/Models/hero_model.dart';
@@ -57,17 +58,19 @@ class _HomeState extends State<Home> {
             stream: _heroStream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return Text(
-                  'Something went wrong',
-                  style: TextStyle(color: Colors.red, fontSize: 45),
-                );
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.ERROR,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Error !',
+                  desc: 'Something went wrong. Please try again!',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                )..show();
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text(
-                  "Loading",
-                  style: TextStyle(color: Colors.red, fontSize: 45),
-                );
+                return Center(child: CircularProgressIndicator());
               }
 
               final List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -116,11 +119,12 @@ class _HomeState extends State<Home> {
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                                text: 'Despicable Me',
+                                text: 'Moden Day Heros',
                                 style: AppTheme.display1),
                             TextSpan(text: '\n'),
                             TextSpan(
-                                text: 'Characters', style: AppTheme.display2)
+                                text: 'Read more about heros',
+                                style: AppTheme.display2)
                           ])),
                           IconButton(
                             onPressed: () {
