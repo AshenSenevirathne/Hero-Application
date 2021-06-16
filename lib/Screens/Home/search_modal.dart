@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Shared/styleguide.dart';
+import 'package:hero_application/Screens/HeroDetails/hero_details.dart';
 
 class SearchModal extends StatefulWidget {
-  const SearchModal({
-    Key? key,
-    required this.heroList,
-  }) : super(key: key);
+  const SearchModal({Key? key, required this.heroList, required this.colors})
+      : super(key: key);
 
   final List<HeroModel> heroList;
+  final List<Color> colors;
 
   @override
   _SearchModalState createState() => _SearchModalState();
@@ -89,7 +89,17 @@ class _SearchModalState extends State<SearchModal> {
                         subtitle: Text('Tap to read more ...',
                             style: TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.w700)),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 350),
+                                  pageBuilder: (context, _, __) =>
+                                      HeroDetailScreen(
+                                          hero: fiterHeros[i],
+                                          colors: widget.colors)));
+                        },
                       ))
               ],
             ))

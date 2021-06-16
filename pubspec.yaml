@@ -1,7 +1,7 @@
 name: hero_application
 description: Applcation for view heros.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # Version
 version: 1.0.0+1
@@ -42,6 +42,8 @@ dependencies:
   # Future Progress Dialog
   future_progress_dialog: ^0.2.0
 
+  # After layout
+  after_layout: ^1.0.7+2
 
 dev_dependencies:
   flutter_test:
@@ -49,7 +51,6 @@ dev_dependencies:
 
 # Flutter Specifications
 flutter:
-
   # the material Icons class.
   uses-material-design: true
 

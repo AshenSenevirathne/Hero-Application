@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Shared/styleguide.dart';
+import 'package:hero_application/Screens/HeroDetails/hero_details.dart';
 
 class CharacterWidget extends StatelessWidget {
   const CharacterWidget(
@@ -21,7 +22,14 @@ class CharacterWidget extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 350),
+                pageBuilder: (context, _, __) =>
+                    HeroDetailScreen(hero: character, colors: colors)));
+      },
       child: AnimatedBuilder(
           animation: pageController,
           builder: (context, child) {

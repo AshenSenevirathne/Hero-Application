@@ -128,7 +128,8 @@ class _HomeState extends State<Home> {
                           ])),
                           IconButton(
                             onPressed: () {
-                              _onTapSearch(context, heroList);
+                              _onTapSearch(context, heroList,
+                                  listColours[random.nextInt(4)]);
                             },
                             icon: Icon(Icons.search_rounded),
                             iconSize: 35.0,
@@ -155,13 +156,14 @@ class _HomeState extends State<Home> {
   }
 }
 
-_onTapSearch(BuildContext context, List<HeroModel> heroList) {
+_onTapSearch(
+    BuildContext context, List<HeroModel> heroList, List<Color> listColours) {
   showModalBottomSheet<void>(
     backgroundColor: Colors.transparent,
     context: context,
     elevation: 0,
     builder: (BuildContext context) {
-      return SearchModal(heroList: heroList);
+      return SearchModal(heroList: heroList, colors: listColours);
     },
   );
 }

@@ -30,6 +30,14 @@ class AppTheme {
     fontFamily: 'WorkSans',
     fontWeight: FontWeight.w500,
     fontSize: 24,
-    color: Colors.white.withOpacity(0.8),
+    color: Colors.white.withOpacity(0.9),
+  );
+
+  static final TextStyle normalTextStyle = TextStyle(
+    inherit: true,
+    fontFamily: 'WorkSans',
+    fontWeight: FontWeight.w300,
+    fontSize: 20,
+    color: Colors.white.withOpacity(0.9),
   );
 }

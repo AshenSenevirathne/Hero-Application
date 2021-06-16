@@ -15,12 +15,10 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 * */
 import 'package:hero_application/Models/hero_model.dart';
 
-
 /*
 *   Manage hero database services
 * */
 class HeroDatabaseServices {
-
   // Heroes database reference
   CollectionReference heroes = FirebaseFirestore.instance.collection('Heroes');
 
@@ -60,9 +58,9 @@ class HeroDatabaseServices {
 
   // Function to upload file to firebase
   Future<String> uploadFile(File file) async {
-
     // Create reference to image
-    String ref = 'Heroes/${DateTime.now().millisecondsSinceEpoch.toString() + "_" + basename(file.path)}';
+    String ref =
+        'Heroes/${DateTime.now().millisecondsSinceEpoch.toString() + "_" + basename(file.path)}';
 
     try {
       await firebase_storage.FirebaseStorage.instance.ref(ref).putFile(file);
@@ -72,5 +70,19 @@ class HeroDatabaseServices {
     } on FirebaseException catch (e) {
       return "ERROR";
     }
+  }
+
+  // Function to delete hero to firebase
+  Future<String> deleteHero(String id) async {
+    return await heroes.doc(id).delete().then((value) {
+      return "SUCCESS";
+    }).catchError((error) {
+      return "ERROR";
+    });
+  }
+
+  // Get hero by name
+  Stream<QuerySnapshot> getHeroByName(String name) {
+    return heroes.where("HeroName", isEqualTo: name).snapshots();
   }
 }
