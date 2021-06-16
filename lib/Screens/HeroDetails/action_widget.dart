@@ -4,6 +4,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Services/hero_database_services.dart';
 import 'package:hero_application/Shared/alert_dialog.dart';
+import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup.dart';
+import 'package:hero_application/Screens/HeroHome/HeroManagement/hero_model_popup_route.dart';
 
 class ActionWidget extends StatefulWidget {
   const ActionWidget(
@@ -52,7 +54,13 @@ class _ActionWidget extends State<ActionWidget> {
   }
 
   void _fnEditHero(HeroModel hero) {
-    HeroModel nhero = hero;
+    Navigator.of(context).push(HeroModelPopupRoute(builder: (context) {
+      return HeroModelPopup(
+        heroModel: hero,
+        type: "EDIT",
+        popUpHandler: "",
+      );
+    }));
   }
 
   @override
