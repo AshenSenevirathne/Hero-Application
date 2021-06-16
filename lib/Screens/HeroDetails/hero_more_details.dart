@@ -18,7 +18,8 @@ class _HeroMoreDetailsWidget extends State<HeroMoreDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
