@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:hero_application/Models/hero_model.dart';
 import 'package:hero_application/Services/hero_database_services.dart';
-
 import 'package:hero_application/Shared/alert_dialog.dart';
-
-import 'package:future_progress_dialog/future_progress_dialog.dart';
 
 class ActionWidget extends StatefulWidget {
   const ActionWidget(
@@ -33,8 +32,18 @@ class _ActionWidget extends State<ActionWidget> {
           message: Text('Please wait. Hero deleting...')),
     ).then((value) {
       if (value == "SUCCESS") {
-        Navigator.pop(context);
-        showAlertDialog(context, false, "Done!", "Hero deleted successfully.");
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.SUCCES,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Done',
+            desc: "Hero deleted successfully.",
+            dismissOnTouchOutside: false,
+            btnOkOnPress: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, "/home");
+            })
+          ..show();
       } else {
         showAlertDialog(context, true, "Oops, Something went wrong!",
             "Error occurred while hero deleting. Please Delete hero again.");
